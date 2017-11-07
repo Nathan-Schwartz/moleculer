@@ -43,7 +43,7 @@ describe("Test JSON serializer", () => {
 	it("should serialize the heartbeat packet", () => {
 		const packet = new P.PacketHeartbeat(broker.transit, 66);
 		const s = packet.serialize();
-		expect(s).toBe("{\"ver\":\"2\",\"sender\":\"test-1\",\"cpu\":66}");
+		expect(s).toMatch(/{\"ver\":\"2\",\"sender\":\"test-1\",\"sentAt\":\d*,\"cpu\":66}/);
 
 		const res = P.Packet.deserialize(broker.transit, P.PACKET_HEARTBEAT, s);
 		expect(res).toBeInstanceOf(P.PacketHeartbeat);
@@ -402,7 +402,7 @@ describe("Test MsgPack serializer", () => {
 	it("should serialize the heartbeat packet", () => {
 		const packet = new P.PacketHeartbeat(broker.transit, 120);
 		const s = packet.serialize();
-		expect(Buffer.byteLength(s, "binary")).toBe(26);
+		expect(Buffer.byteLength(s, "binary")).toBe(42);
 
 		const res = P.Packet.deserialize(broker.transit, P.PACKET_HEARTBEAT, s);
 		expect(res).toBeInstanceOf(P.PacketHeartbeat);

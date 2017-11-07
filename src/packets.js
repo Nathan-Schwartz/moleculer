@@ -137,6 +137,7 @@ class PacketDisconnect extends Packet {
 class PacketHeartbeat extends Packet {
 	constructor(transit, cpu) {
 		super(transit, PACKET_HEARTBEAT);
+		this.payload.sentAt = Date.now();
 		this.payload.cpu = cpu;
 	}
 }

@@ -68,7 +68,7 @@ class Node {
 	 */
 	heartbeat(payload) {
 		this.cpu = payload.cpu;
-		this.lastHeartbeatTime = Date.now();
+		this.lastHeartbeatTime = payload.sentAt;
 		this.available = true;
 	}
 

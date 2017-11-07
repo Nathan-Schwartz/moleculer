@@ -73,11 +73,13 @@ describe("Test PacketHeartbeat", () => {
 	const transit = { nodeID: "node-1" };
 
 	it("should set properties", () => {
+		const start = Date.now();
 		let packet = new P.PacketHeartbeat(transit, 65);
 		expect(packet).toBeDefined();
 		expect(packet.type).toBe(P.PACKET_HEARTBEAT);
 		expect(packet.target).toBeUndefined();
 		expect(packet.payload).toBeDefined();
+		expect(packet.payload.sentAt).toBeGreaterThanOrEqual(start);
 		expect(packet.payload.sender).toBe("node-1");
 		expect(packet.payload.cpu).toBe(65);
 	});

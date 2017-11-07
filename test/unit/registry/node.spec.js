@@ -43,13 +43,14 @@ describe("Test Node", () => {
 		node.available = false;
 
 		let payload = {
-			cpu: 56.8
+			cpu: 56.8,
+			sentAt: Date.now(),
 		};
 		node.heartbeat(payload);
 
 		expect(node.cpu).toBe(56.8);
 		expect(node.available).toBe(true);
-		expect(node.lastHeartbeatTime).toBeDefined();
+		expect(node.lastHeartbeatTime).toBe(payload.sentAt);
 	});
 
 	it("should set unavailable", () => {
